@@ -83,7 +83,7 @@ export default function AdminDashboard({ onAdminLogout }) {
       key: 'shortUrl',
       width: 180,
       render: (url) => (
-        <a href={url} target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-300 text-sm font-medium">
+        <a href={url} target="_blank" rel="noopener noreferrer" className="text-accent hover:opacity-80 text-sm font-medium">
           {url.replace('https://', '')}
         </a>
       ),
@@ -106,7 +106,7 @@ export default function AdminDashboard({ onAdminLogout }) {
       width: 90,
       sorter: (a, b) => a.clicks - b.clicks,
       render: (clicks) => (
-        <Tag color={clicks > 300 ? 'green' : clicks > 100 ? 'blue' : 'default'}>
+        <Tag color={clicks > 300 ? 'green' : clicks > 100 ? 'orange' : 'default'}>
           {clicks.toLocaleString()}
         </Tag>
       ),
@@ -146,7 +146,7 @@ export default function AdminDashboard({ onAdminLogout }) {
           </div>
           <div>
             <Title level={5} className="!mb-0 !text-white">Admin Dashboard</Title>
-            <Text className="!text-gray-400 text-xs">Shortly — Restricted access</Text>
+            <Text className="!text-gray-400 text-xs">ToShort — Restricted access</Text>
           </div>
         </div>
         <Button
@@ -163,7 +163,7 @@ export default function AdminDashboard({ onAdminLogout }) {
         {/* Stats */}
         <Row gutter={16} className="mb-8">
           {[
-            { title: 'Total Users', value: users.length, icon: <TeamOutlined />, color: 'text-blue-400' },
+            { title: 'Total Users', value: users.length, icon: <TeamOutlined />, color: 'text-accent' },
             { title: 'Active Users', value: activeUsers, icon: <CheckCircleOutlined />, color: 'text-green-400' },
             { title: 'Total Short URLs', value: totalUrls, icon: <LinkOutlined />, color: 'text-purple-400' },
             { title: 'Total Clicks', value: totalClicks, icon: <BarChartOutlined />, color: 'text-yellow-400' },
@@ -218,7 +218,7 @@ export default function AdminDashboard({ onAdminLogout }) {
                   color={selectedUser.isActive ? 'green' : 'red'}
                   offset={[-4, 60]}
                 >
-                  <Avatar size={64} icon={<UserOutlined />} className="bg-blue-600 shrink-0" />
+                  <Avatar size={64} icon={<UserOutlined />} className="bg-primary shrink-0" />
                 </Badge>
 
                 <div className="flex-1">

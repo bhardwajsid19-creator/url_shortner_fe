@@ -81,7 +81,7 @@ export default function MyProfile() {
             href={url}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-gray-700 hover:text-blue-500 text-sm"
+            className="text-gray-700 hover:text-primary text-sm"
           >
             {url}
           </a>
@@ -99,7 +99,7 @@ export default function MyProfile() {
             href={url}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-blue-500 hover:text-blue-600 text-sm font-medium"
+            className="text-primary hover:text-primary text-sm font-medium"
           >
             {url.replace("https://", "")}
           </a>
@@ -108,7 +108,7 @@ export default function MyProfile() {
               type="text"
               size="small"
               icon={<CopyOutlined />}
-              className="text-gray-400 hover:text-blue-500"
+              className="text-gray-400 hover:text-primary"
               onClick={() => handleCopy(url)}
             />
           </Tooltip>
@@ -122,7 +122,7 @@ export default function MyProfile() {
       width: 100,
       sorter: (a, b) => a.clicks - b.clicks,
       render: (clicks) => (
-        <Tag color={clicks > 200 ? "green" : clicks > 50 ? "blue" : "default"}>
+        <Tag color={clicks > 200 ? "green" : clicks > 50 ? "orange" : "default"}>
           {clicks.toLocaleString()}
         </Tag>
       ),
@@ -149,7 +149,7 @@ export default function MyProfile() {
               type="text"
               size="small"
               icon={<EditOutlined />}
-              className="text-gray-500 hover:text-blue-500"
+              className="text-gray-500 hover:text-primary"
               onClick={() => openEdit(record)}
             />
           </Tooltip>
@@ -185,7 +185,7 @@ export default function MyProfile() {
             <Avatar
               size={72}
               icon={<UserOutlined />}
-              className="bg-blue-500 shrink-0"
+              className="bg-primary shrink-0"
             />
             <div className="flex-1">
               <Title level={4} className="!mb-0">

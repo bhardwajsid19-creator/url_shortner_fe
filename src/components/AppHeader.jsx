@@ -54,7 +54,7 @@ export default function AppHeader({ isLoggedIn, onLogout }) {
       >
         <Avatar
           icon={<UserOutlined />}
-          className="bg-blue-500 cursor-pointer hover:bg-blue-600 transition-colors"
+          className="bg-primary cursor-pointer hover:opacity-90 transition-opacity"
           size={38}
         />
       </Dropdown>
@@ -91,11 +91,11 @@ export default function AppHeader({ isLoggedIn, onLogout }) {
       <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
         {/* Logo */}
         <Link to="/" className="flex items-center gap-2 no-underline">
-          <div className="bg-blue-500 text-white p-1.5 rounded-lg">
+          <div className="bg-primary text-white p-1.5 rounded-lg">
             <LinkOutlined className="text-lg" />
           </div>
           <span className="text-gray-900 font-bold text-lg leading-none">
-            Short<span className="text-blue-500">ly</span>
+            To<span className="text-primary">Short</span>
           </span>
         </Link>
 
@@ -105,7 +105,7 @@ export default function AppHeader({ isLoggedIn, onLogout }) {
             <Link
               key={link.to}
               to={link.to}
-              className="text-gray-600 hover:text-blue-500 font-medium text-sm transition-colors no-underline"
+              className="text-gray-600 hover:text-primary font-medium text-sm transition-colors no-underline"
             >
               {link.label}
             </Link>
@@ -113,7 +113,15 @@ export default function AppHeader({ isLoggedIn, onLogout }) {
         </nav>
 
         {/* Desktop auth */}
-        <div className="hidden md:flex">
+        <div className="hidden md:flex items-center gap-3">
+          {isLoggedIn && (
+            <Link
+              to="/profile"
+              className="text-gray-600 hover:text-primary font-medium text-sm transition-colors no-underline"
+            >
+              My URLs
+            </Link>
+          )}
           <AuthButtons />
         </div>
 
@@ -140,11 +148,11 @@ export default function AppHeader({ isLoggedIn, onLogout }) {
             className="flex items-center gap-2 no-underline"
             onClick={() => setDrawerOpen(false)}
           >
-            <div className="bg-blue-500 text-white p-1 rounded-md">
+            <div className="bg-primary text-white p-1 rounded-md">
               <LinkOutlined />
             </div>
             <span className="text-gray-900 font-bold">
-              Short<span className="text-blue-500">ly</span>
+              To<span className="text-primary">Short</span>
             </span>
           </Link>
         }
@@ -156,7 +164,7 @@ export default function AppHeader({ isLoggedIn, onLogout }) {
               key={link.to}
               to={link.to}
               onClick={() => setDrawerOpen(false)}
-              className="text-gray-700 hover:text-blue-500 hover:bg-blue-50 font-medium text-base px-3 py-2 rounded-lg transition-colors no-underline"
+              className="text-gray-700 hover:text-primary hover:bg-secondary font-medium text-base px-3 py-2 rounded-lg transition-colors no-underline"
             >
               {link.label}
             </Link>

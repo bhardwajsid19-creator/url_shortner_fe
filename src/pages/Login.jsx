@@ -20,8 +20,8 @@ export default function Login({ onLogin }) {
     <div className="bg-gray-50 flex items-center justify-center p-4 py-16">
       <div className="bg-white rounded-2xl shadow-lg p-8 w-full max-w-sm">
         <div className="flex flex-col items-center mb-8">
-          <div className="bg-blue-50 p-3 rounded-full mb-3">
-            <LinkOutlined className="text-blue-500 text-2xl" />
+          <div className="bg-secondary p-3 rounded-full mb-3">
+            <LinkOutlined className="text-primary text-2xl" />
           </div>
           <Title level={3} className="!mb-1">Welcome back</Title>
           <Text type="secondary">Sign in to your account</Text>
@@ -56,7 +56,7 @@ export default function Login({ onLogin }) {
           </Form.Item>
 
           <div className="flex justify-end -mt-2 mb-4">
-            <a href="#" className="text-sm text-blue-500 hover:text-blue-600">
+            <a href="#" className="text-sm text-primary hover:opacity-80">
               Forgot password?
             </a>
           </div>

@@ -1,9 +1,12 @@
 import { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { ConfigProvider } from "antd";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { themes } from "./lib/theme";
 import PageLayout from "./components/PageLayout";
 import AdminProtectedRoute from "./components/AdminProtectedRoute";
+import AdminThemeProvider from "./components/AdminThemeProvider";
 import ProtectedRoute from "./components/ProtectedRoute";
 import PublicOnlyRoute from "./components/PublicOnlyRoute";
 import Home from "./pages/Home.jsx";
@@ -14,10 +17,11 @@ import AdminLogin from "./pages/admin/AdminLogin.jsx";
 import AdminDashboard from "./pages/admin/AdminDashboard.jsx";
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
   const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(false);
 
   return (
+    <ConfigProvider theme={themes.user.antd}>
     <BrowserRouter>
       <ToastContainer stacked />
       <Routes>
@@ -25,20 +29,24 @@ function App() {
         <Route
           path="/admin/login"
           element={
-            <PublicOnlyRoute
-              isLoggedIn={isAdminLoggedIn}
-              redirectTo="/admin/dashboard"
-            >
-              <AdminLogin onAdminLogin={() => setIsAdminLoggedIn(true)} />
-            </PublicOnlyRoute>
+            <AdminThemeProvider>
+              <PublicOnlyRoute
+                isLoggedIn={isAdminLoggedIn}
+                redirectTo="/admin/dashboard"
+              >
+                <AdminLogin onAdminLogin={() => setIsAdminLoggedIn(true)} />
+              </PublicOnlyRoute>
+            </AdminThemeProvider>
           }
         />
         <Route
           path="/admin/dashboard"
           element={
-            <AdminProtectedRoute isAdminLoggedIn={isAdminLoggedIn}>
-              <AdminDashboard onAdminLogout={() => setIsAdminLoggedIn(false)} />
-            </AdminProtectedRoute>
+            <AdminThemeProvider>
+              <AdminProtectedRoute isAdminLoggedIn={isAdminLoggedIn}>
+                <AdminDashboard onAdminLogout={() => setIsAdminLoggedIn(false)} />
+              </AdminProtectedRoute>
+            </AdminThemeProvider>
           }
         />
 
@@ -95,6 +103,7 @@ function App() {
         />
       </Routes>
     </BrowserRouter>
+    </ConfigProvider>
   );
 }
 
