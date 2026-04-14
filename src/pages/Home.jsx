@@ -100,12 +100,12 @@ export default function Home() {
   };
 
   return (
-    <div className="relative flex flex-1 flex-col items-center justify-center overflow-hidden bg-gradient-to-br from-orange-50 via-white to-amber-50/40 px-4 py-14">
+    <div className="relative flex flex-1 flex-col items-center justify-center overflow-hidden bg-orange-50 px-4 py-14">
       {/* ── Decorative background orbs ── */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="animate-float absolute -top-44 -right-44 h-[480px] w-[480px] rounded-full bg-orange-200/30 blur-3xl" />
-        <div className="animate-float-delayed absolute -bottom-44 -left-44 h-[400px] w-[400px] rounded-full bg-amber-200/30 blur-3xl" />
-        <div className="animate-pulse-glow absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-72 w-72 rounded-full bg-primary/5 blur-2xl" />
+        <div className="animate-float absolute -top-44 -right-44 h-[480px] w-[480px] rounded-full bg-orange-300/25 blur-3xl" />
+        <div className="animate-float-delayed absolute -bottom-44 -left-44 h-[400px] w-[400px] rounded-full bg-amber-300/20 blur-3xl" />
+        <div className="animate-pulse-glow absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-72 w-72 rounded-full bg-primary/8 blur-2xl" />
         {/* subtle grid overlay */}
         <div
           className="absolute inset-0 opacity-[0.025]"
@@ -119,15 +119,7 @@ export default function Home() {
 
       {/* ── Hero text ── */}
       <motion.div className="relative z-10 mb-10 text-center" {...fadeUp(0)}>
-        <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-orange-200 bg-white/80 px-4 py-1.5 text-sm font-medium text-orange-600 shadow-sm backdrop-blur-sm">
-          <span className="relative flex h-2 w-2">
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-orange-400 opacity-75" />
-            <span className="relative inline-flex h-2 w-2 rounded-full bg-orange-500" />
-          </span>
-          Free &amp; instant link shortening
-        </div>
-
-        <h1 className="mt-4 text-4xl font-extrabold tracking-tight text-gray-900 sm:text-5xl md:text-6xl">
+        <h1 className="text-3xl font-extrabold tracking-tight text-gray-900 sm:text-3xl md:text-4xl">
           Short links,{" "}
           <span
             className="bg-gradient-to-r from-primary via-orange-400 to-amber-400 bg-clip-text text-transparent"
@@ -136,7 +128,7 @@ export default function Home() {
             big impact
           </span>
         </h1>
-        <p className="mx-auto mt-4 max-w-lg text-base text-gray-500 sm:text-lg">
+        <p className="mx-auto mt-4 max-w-lg text-base text-gray-500 sm:text-md">
           Create branded short URLs with custom names, expiry dates, and click
           analytics — in seconds.
         </p>
@@ -156,7 +148,7 @@ export default function Home() {
             <p className="text-xs font-medium uppercase tracking-widest text-gray-400">
               URL Shortener
             </p>
-            <p className="text-sm font-semibold text-gray-700 leading-none">
+            <p className="text-xs font-semibold text-gray-700 leading-none mt-1.5">
               Paste your long link below
             </p>
           </div>
@@ -301,10 +293,10 @@ export default function Home() {
             key={label}
             className="flex flex-col items-center gap-1 text-center"
           >
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-orange-50 text-primary text-base">
+            <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-orange-50 text-primary text-base">
               <Icon />
             </div>
-            <span className="text-xl font-bold text-gray-800">{value}</span>
+            <span className="text-lg font-bold text-gray-800">{value}</span>
             <span className="text-xs text-gray-400">{label}</span>
           </div>
         ))}

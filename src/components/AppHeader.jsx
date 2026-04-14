@@ -53,8 +53,12 @@ export default function AppHeader({ isLoggedIn, onLogout }) {
       >
         <Avatar
           icon={<UserOutlined />}
-          className="bg-primary cursor-pointer hover:opacity-90 transition-opacity"
+          className="cursor-pointer transition-transform hover:scale-105"
           size={36}
+          style={{
+            background: "linear-gradient(135deg, #F97316, #FB923C)",
+            boxShadow: "0 4px 12px rgba(249,115,22,0.45)",
+          }}
         />
       </Dropdown>
     ) : (

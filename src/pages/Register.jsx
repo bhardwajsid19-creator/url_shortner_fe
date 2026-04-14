@@ -20,11 +20,11 @@ export default function Register({ onLogin }) {
   };
 
   return (
-    <div className="relative flex flex-1 items-center justify-center overflow-hidden bg-gradient-to-br from-orange-50 via-white to-amber-50/40 px-4 py-16">
+    <div className="relative flex flex-1 items-center justify-center overflow-hidden bg-orange-50 px-4 py-16">
       {/* Background orbs */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="animate-float absolute -top-32 -right-32 h-72 w-72 rounded-full bg-orange-200/30 blur-3xl" />
-        <div className="animate-float-delayed absolute -bottom-32 -left-32 h-64 w-64 rounded-full bg-amber-200/30 blur-3xl" />
+        <div className="animate-float absolute -top-32 -right-32 h-72 w-72 rounded-full bg-orange-300/25 blur-3xl" />
+        <div className="animate-float-delayed absolute -bottom-32 -left-32 h-64 w-64 rounded-full bg-amber-300/20 blur-3xl" />
       </div>
 
       <motion.div

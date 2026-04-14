@@ -131,9 +131,9 @@ export default function MyProfile() {
   const totalClicks = data.reduce((sum, r) => sum + r.clicks, 0);
 
   return (
-    <div className="relative min-h-full overflow-hidden bg-gradient-to-br from-orange-50/60 via-white to-amber-50/30 py-10 px-4">
-      {/* Subtle background orb */}
-      <div className="pointer-events-none absolute -top-40 -right-40 h-96 w-96 rounded-full bg-orange-100/50 blur-3xl" />
+    <div className="relative min-h-full overflow-hidden bg-orange-50 py-10 px-4">
+      {/* Background orbs */}
+      <div className="pointer-events-none absolute -top-40 -right-40 h-96 w-96 rounded-full bg-orange-300/25 blur-3xl" />
 
       {contextHolder}
       <div className="relative z-10 max-w-6xl mx-auto">
