@@ -11,15 +11,26 @@ import {
 } from "@ant-design/icons";
 
 const NAV_LINKS = [
-  { label: "Home",     to: "/" },
+  { label: "Home", to: "/" },
   { label: "Features", to: "/features" },
-  { label: "Pricing",  to: "/pricing" },
+  { label: "Pricing", to: "/pricing" },
 ];
 
 const userMenuItems = (onLogout, onProfile) => [
-  { key: "profile", icon: <UserOutlined />,  label: "Profile", onClick: onProfile },
+  {
+    key: "profile",
+    icon: <UserOutlined />,
+    label: "Profile",
+    onClick: onProfile,
+  },
   { type: "divider" },
-  { key: "logout",  icon: <LogoutOutlined />, label: "Logout", danger: true, onClick: onLogout },
+  {
+    key: "logout",
+    icon: <LogoutOutlined />,
+    label: "Logout",
+    danger: true,
+    onClick: onLogout,
+  },
 ];
 
 export default function AppHeader({ isLoggedIn, onLogout }) {
@@ -34,7 +45,9 @@ export default function AppHeader({ isLoggedIn, onLogout }) {
   const AuthButtons = ({ vertical = false }) =>
     isLoggedIn ? (
       <Dropdown
-        menu={{ items: userMenuItems(handleLogout, () => navigate("/profile")) }}
+        menu={{
+          items: userMenuItems(handleLogout, () => navigate("/profile")),
+        }}
         placement="bottomRight"
         trigger={["click"]}
       >
@@ -45,11 +58,16 @@ export default function AppHeader({ isLoggedIn, onLogout }) {
         />
       </Dropdown>
     ) : (
-      <div className={`flex ${vertical ? "flex-col w-full gap-2 mt-2" : "items-center gap-2"}`}>
+      <div
+        className={`flex ${vertical ? "flex-col w-full gap-2 mt-2" : "items-center gap-2"}`}
+      >
         <Button
           size={vertical ? "large" : "middle"}
           block={vertical}
-          onClick={() => { navigate("/login");    setDrawerOpen(false); }}
+          onClick={() => {
+            navigate("/login");
+            setDrawerOpen(false);
+          }}
         >
           Login
         </Button>
@@ -58,7 +76,10 @@ export default function AppHeader({ isLoggedIn, onLogout }) {
           size={vertical ? "large" : "middle"}
           block={vertical}
           className="!shadow-md !shadow-orange-100"
-          onClick={() => { navigate("/register"); setDrawerOpen(false); }}
+          onClick={() => {
+            navigate("/register");
+            setDrawerOpen(false);
+          }}
         >
           Sign up
         </Button>
@@ -68,14 +89,17 @@ export default function AppHeader({ isLoggedIn, onLogout }) {
   return (
     <motion.header
       initial={{ y: -64, opacity: 0 }}
-      animate={{ y: 0,   opacity: 1 }}
+      animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
       className="sticky top-0 z-50 border-b border-white/40 bg-white/80 backdrop-blur-xl shadow-sm"
     >
       {/* Subtle orange accent line on top */}
       <div className="h-[2px] w-full bg-gradient-to-r from-transparent via-primary/40 to-transparent" />
 
-      <div className="max-w-6xl mx-auto px-4 h-15 flex items-center justify-between" style={{ height: 60 }}>
+      <div
+        className="max-w-6xl mx-auto px-4 h-15 flex items-center justify-between"
+        style={{ height: 60 }}
+      >
         {/* Logo */}
         <Link to="/" className="flex items-center gap-2 no-underline group">
           <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-primary to-orange-400 text-white shadow-md shadow-orange-200 transition-transform group-hover:scale-105">

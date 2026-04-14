@@ -1,19 +1,23 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { LinkOutlined, GithubOutlined, TwitterOutlined } from "@ant-design/icons";
+import {
+  LinkOutlined,
+  GithubOutlined,
+  TwitterOutlined,
+} from "@ant-design/icons";
 
 const FOOTER_LINKS = {
   Product: [
     { label: "Features", to: "/features" },
-    { label: "Pricing",  to: "/pricing" },
+    { label: "Pricing", to: "/pricing" },
   ],
   Company: [
-    { label: "About",   to: "/about" },
+    { label: "About", to: "/about" },
     { label: "Contact", to: "/contact" },
   ],
   Legal: [
     { label: "Privacy", to: "/privacy" },
-    { label: "Terms",   to: "/terms" },
+    { label: "Terms", to: "/terms" },
   ],
 };
 
@@ -28,7 +32,10 @@ export default function AppFooter() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
           {/* Brand */}
           <div className="col-span-2 md:col-span-1">
-            <Link to="/" className="inline-flex items-center gap-2 no-underline mb-4 group">
+            <Link
+              to="/"
+              className="inline-flex items-center gap-2 no-underline mb-4 group"
+            >
               <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-primary to-orange-400 text-white shadow-lg shadow-orange-900/30 transition-transform group-hover:scale-105">
                 <LinkOutlined className="text-sm" />
               </div>
@@ -69,8 +76,16 @@ export default function AppFooter() {
           </p>
           <div className="flex items-center gap-1">
             {[
-              { href: "#", icon: <GithubOutlined className="text-lg" />, label: "GitHub" },
-              { href: "#", icon: <TwitterOutlined className="text-lg" />, label: "Twitter" },
+              {
+                href: "#",
+                icon: <GithubOutlined className="text-lg" />,
+                label: "GitHub",
+              },
+              {
+                href: "#",
+                icon: <TwitterOutlined className="text-lg" />,
+                label: "Twitter",
+              },
             ].map(({ href, icon, label }) => (
               <motion.a
                 key={label}
