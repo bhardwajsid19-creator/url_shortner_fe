@@ -13,7 +13,7 @@ import AdminDashboard from "./pages/admin/AdminDashboard.jsx";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(true);
+  const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(false);
 
   return (
     <BrowserRouter>
