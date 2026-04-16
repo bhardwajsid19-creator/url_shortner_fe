@@ -1,3 +1,4 @@
+import { build } from "vite";
 import { api } from "./api";
 
 /**
@@ -9,10 +10,7 @@ import { api } from "./api";
  * @returns {Promise<{ shortUrl: string }>}
  */
 export async function shortenUrl(payload) {
-  return api.post(
-    `${import.meta.env.VITE_BE_DOMAIN_NAME}/${import.meta.env.VITE_URL_SHORTENER}`,
-    payload,
-  );
+  return api.post(buildUrl(import.meta.env.VITE_URL_SHORTENER), payload);
 }
 
 /**
@@ -21,7 +19,5 @@ export async function shortenUrl(payload) {
  * @returns {Promise<{ destination_url: string }>}
  */
 export async function resolveUrl(slug) {
-  return api.get(
-    `${import.meta.env.VITE_BE_DOMAIN_NAME}/${import.meta.env.VITE_URL_SHORTENER}/?shortcode=${slug}`,
-  );
+  return api.get(buildUrl(`${import.meta.env.VITE_URL_RESOLVER}/${slug}`));
 }
