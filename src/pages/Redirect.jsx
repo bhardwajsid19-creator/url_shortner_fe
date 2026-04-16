@@ -5,8 +5,6 @@ import { ArrowRightOutlined } from "@ant-design/icons";
 import { Button } from "antd";
 import { resolveUrl } from "../services/urlService";
 
-const PREFIX = import.meta.env.VITE_SHORT_URL_PREFIX ?? "r";
-
 export default function Redirect() {
   const { slug } = useParams();
   const navigate = useNavigate();
@@ -20,62 +18,14 @@ export default function Redirect() {
 
     resolveUrl(slug)
       .then((data) => {
-        window.location.replace(data.url + window.location.search);
+        console.log("Resolved URL data:", data);
       })
       .catch(() => setNotFound(true));
   }, [slug]);
 
   if (notFound) return <NotFound slug={slug} />;
 
-  return (
-    <></>
-    // <div className="flex min-h-screen flex-col items-center justify-center bg-orange-50 px-4">
-    //   {/* Background orbs */}
-    //   <div className="pointer-events-none fixed inset-0 overflow-hidden">
-    //     <div className="absolute -top-44 -right-44 h-[480px] w-[480px] rounded-full bg-orange-300/20 blur-3xl" />
-    //     <div className="absolute -bottom-44 -left-44 h-[400px] w-[400px] rounded-full bg-amber-300/15 blur-3xl" />
-    //   </div>
-
-    //   <motion.div
-    //     initial={{ opacity: 0, scale: 0.95 }}
-    //     animate={{ opacity: 1, scale: 1 }}
-    //     transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-    //     className="relative z-10 flex flex-col items-center gap-5 text-center"
-    //   >
-    //     {/* Spinner icon */}
-    //     <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-primary to-orange-400 shadow-lg shadow-orange-200">
-    //       <motion.div
-    //         animate={{ rotate: 360 }}
-    //         transition={{ duration: 1.2, repeat: Infinity, ease: "linear" }}
-    //       >
-    //         <LinkOutlined className="text-2xl text-white" />
-    //       </motion.div>
-    //     </div>
-
-    //     <div>
-    //       <p className="text-lg font-bold text-gray-800">Redirecting you…</p>
-    //       <p className="mt-1 text-sm text-gray-400">
-    //         Following{" "}
-    //         <span className="font-mono font-semibold text-primary">
-    //           {PREFIX}/{slug}
-    //         </span>
-    //       </p>
-    //     </div>
-
-    //     {/* Animated dots */}
-    //     <div className="flex gap-1.5">
-    //       {[0, 0.2, 0.4].map((delay, i) => (
-    //         <motion.span
-    //           key={i}
-    //           className="h-2 w-2 rounded-full bg-primary"
-    //           animate={{ opacity: [0.3, 1, 0.3] }}
-    //           transition={{ duration: 1, repeat: Infinity, delay }}
-    //         />
-    //       ))}
-    //     </div>
-    //   </motion.div>
-    // </div>
-  );
+  return <></>;
 }
 
 function NotFound({ slug }) {

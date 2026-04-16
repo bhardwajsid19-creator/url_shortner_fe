@@ -18,8 +18,8 @@ import AdminDashboard from "./pages/admin/AdminDashboard.jsx";
 import Redirect from "./pages/Redirect.jsx";
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
-  const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(false);
 
   return (
     <ConfigProvider theme={themes.user.antd}>
@@ -27,8 +27,14 @@ function App() {
         <ToastContainer stacked />
         <Routes>
           {/* Redirect route — no header/footer */}
-          <Route path={`/${import.meta.env.VITE_SHORT_URL_PREFIX}/:slug`} element={<Redirect />} />
-          <Route path={`/${import.meta.env.VITE_SHORT_URL_PREFIX}`} element={<Redirect />} />
+          <Route
+            path={`/${import.meta.env.VITE_SHORT_URL_PREFIX}/:slug`}
+            element={<Redirect />}
+          />
+          <Route
+            path={`/${import.meta.env.VITE_SHORT_URL_PREFIX}`}
+            element={<Redirect />}
+          />
 
           {/* Admin routes — no header/footer */}
           <Route
