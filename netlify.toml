@@ -1,0 +1,18 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+# ── API proxy — forwards /api/* to BE server-side (avoids CORS) ──────────────
+[[redirects]]
+  from = "/api/*"
+  to = "https://declan-unsupplantable-overeffusively.ngrok-free.dev/api/:splat"
+  status = 200
+  force = true
+  [redirects.headers]
+    ngrok-skip-browser-warning = "true"
+
+# ── SPA fallback — must be last ───────────────────────────────────────────────
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
