@@ -1,22 +1,83 @@
-import { motion } from "framer-motion";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { Button, Form, Input, Divider } from "antd";
-import { LockOutlined, MailOutlined, UserOutlined, LinkOutlined } from "@ant-design/icons";
+import {
+  LockOutlined,
+  MailOutlined,
+  UserOutlined,
+  LinkOutlined,
+} from "@ant-design/icons";
 import { useNavigate, Link } from "react-router-dom";
+import { register } from "../services/authService";
+import { showToast } from "../lib/toast";
 
 const fadeUp = {
-  initial:    { opacity: 0, y: 28 },
-  animate:    { opacity: 1, y: 0 },
+  initial: { opacity: 0, y: 28 },
+  animate: { opacity: 1, y: 0 },
   transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] },
 };
 
+function SuccessOverlay({ message }) {
+  return (
+    <motion.div
+      key="success"
+      initial={{ opacity: 0, scale: 0.85 }}
+      animate={{ opacity: 1, scale: 1 }}
+      exit={{ opacity: 0, scale: 0.85 }}
+      transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+      className="flex flex-col items-center justify-center gap-5 py-10"
+    >
+      <div className="relative flex h-24 w-24 items-center justify-center rounded-full bg-green-50">
+        <svg viewBox="0 0 52 52" className="h-20 w-20" fill="none">
+          <circle
+            cx="26"
+            cy="26"
+            r="24"
+            stroke="#22c55e"
+            strokeWidth="3"
+            fill="none"
+          />
+          <motion.path
+            d="M14 26 L22 34 L38 18"
+            stroke="#22c55e"
+            strokeWidth="3.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            fill="none"
+            initial={{ pathLength: 0 }}
+            animate={{ pathLength: 1 }}
+            transition={{ duration: 0.45, delay: 0.15, ease: "easeOut" }}
+          />
+        </svg>
+      </div>
+      <div className="text-center">
+        <p className="text-lg font-semibold text-gray-900">{message}</p>
+        <p className="mt-1 text-sm text-gray-400">Redirecting you now…</p>
+      </div>
+    </motion.div>
+  );
+}
+
 export default function Register({ onLogin }) {
   const [form] = Form.useForm();
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
   const navigate = useNavigate();
 
-  const onFinish = (values) => {
-    console.log("Register:", values);
-    onLogin?.();
-    navigate("/");
+  const onFinish = async (values) => {
+    setLoading(true);
+    try {
+      await register(values.name, values.email, values.password);
+
+      setSuccess(true);
+      setTimeout(() => {
+        onLogin?.();
+      }, 3000);
+    } catch (err) {
+      showToast.error(err.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -36,98 +97,150 @@ export default function Register({ onLogin }) {
           <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-primary to-orange-400 text-white shadow-lg shadow-orange-200">
             <LinkOutlined className="text-2xl" />
           </div>
-          <h2 className="text-2xl font-bold text-gray-900">Create an account</h2>
-          <p className="mt-1 text-sm text-gray-500">Start shortening URLs for free</p>
+          <h2 className="text-2xl font-bold text-gray-900">
+            Create an account
+          </h2>
+          <p className="mt-1 text-sm text-gray-500">
+            Start shortening URLs for free
+          </p>
         </div>
 
-        <Form form={form} layout="vertical" onFinish={onFinish} requiredMark={false}>
-          <Form.Item
-            name="name"
-            label={<span className="text-xs font-semibold uppercase tracking-wider text-gray-400">Full name</span>}
-            rules={[{ required: true, message: "Please enter your name" }]}
-          >
-            <Input
-              prefix={<UserOutlined className="text-gray-300" />}
-              placeholder="John Doe"
-              size="large"
-              className="rounded-xl"
+        <AnimatePresence mode="wait">
+          {success ? (
+            <SuccessOverlay
+              key="success"
+              message="Account created successfully!"
             />
-          </Form.Item>
-
-          <Form.Item
-            name="email"
-            label={<span className="text-xs font-semibold uppercase tracking-wider text-gray-400">Email</span>}
-            rules={[
-              { required: true, message: "Please enter your email" },
-              { type: "email",  message: "Invalid email address" },
-            ]}
-          >
-            <Input
-              prefix={<MailOutlined className="text-gray-300" />}
-              placeholder="you@example.com"
-              size="large"
-              className="rounded-xl"
-            />
-          </Form.Item>
-
-          <Form.Item
-            name="password"
-            label={<span className="text-xs font-semibold uppercase tracking-wider text-gray-400">Password</span>}
-            rules={[
-              { required: true, message: "Please enter a password" },
-              { min: 8, message: "Password must be at least 8 characters" },
-            ]}
-          >
-            <Input.Password
-              prefix={<LockOutlined className="text-gray-300" />}
-              placeholder="Min. 8 characters"
-              size="large"
-              className="rounded-xl"
-            />
-          </Form.Item>
-
-          <Form.Item
-            name="confirmPassword"
-            label={<span className="text-xs font-semibold uppercase tracking-wider text-gray-400">Confirm password</span>}
-            dependencies={["password"]}
-            rules={[
-              { required: true, message: "Please confirm your password" },
-              ({ getFieldValue }) => ({
-                validator(_, value) {
-                  if (!value || getFieldValue("password") === value) return Promise.resolve();
-                  return Promise.reject(new Error("Passwords do not match"));
-                },
-              }),
-            ]}
-          >
-            <Input.Password
-              prefix={<LockOutlined className="text-gray-300" />}
-              placeholder="Re-enter password"
-              size="large"
-              className="rounded-xl"
-            />
-          </Form.Item>
-
-          <Form.Item className="!mb-0">
-            <Button
-              type="primary"
-              htmlType="submit"
-              size="large"
-              block
-              className="!rounded-xl !h-11 !font-semibold !shadow-md !shadow-orange-200"
+          ) : (
+            <motion.div
+              key="form"
+              initial={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
             >
-              Create account
-            </Button>
-          </Form.Item>
-        </Form>
+              <Form
+                form={form}
+                layout="vertical"
+                onFinish={onFinish}
+                requiredMark={false}
+              >
+                <Form.Item
+                  name="name"
+                  label={
+                    <span className="text-xs font-semibold uppercase tracking-wider text-gray-400">
+                      Full name
+                    </span>
+                  }
+                  rules={[
+                    { required: true, message: "Please enter your name" },
+                  ]}
+                >
+                  <Input
+                    prefix={<UserOutlined className="text-gray-300" />}
+                    placeholder="John Doe"
+                    size="large"
+                    className="rounded-xl"
+                  />
+                </Form.Item>
 
-        <Divider className="!text-gray-400 !text-xs">Already have an account?</Divider>
+                <Form.Item
+                  name="email"
+                  label={
+                    <span className="text-xs font-semibold uppercase tracking-wider text-gray-400">
+                      Email
+                    </span>
+                  }
+                  rules={[
+                    { required: true, message: "Please enter your email" },
+                    { type: "email", message: "Invalid email address" },
+                  ]}
+                >
+                  <Input
+                    prefix={<MailOutlined className="text-gray-300" />}
+                    placeholder="you@example.com"
+                    size="large"
+                    className="rounded-xl"
+                  />
+                </Form.Item>
 
-        <Link to="/login">
-          <Button size="large" block className="!rounded-xl">
-            Sign in
-          </Button>
-        </Link>
+                <Form.Item
+                  name="password"
+                  label={
+                    <span className="text-xs font-semibold uppercase tracking-wider text-gray-400">
+                      Password
+                    </span>
+                  }
+                  rules={[
+                    { required: true, message: "Please enter a password" },
+                    {
+                      min: 8,
+                      message: "Password must be at least 8 characters",
+                    },
+                  ]}
+                >
+                  <Input.Password
+                    prefix={<LockOutlined className="text-gray-300" />}
+                    placeholder="Min. 8 characters"
+                    size="large"
+                    className="rounded-xl"
+                  />
+                </Form.Item>
+
+                <Form.Item
+                  name="confirmPassword"
+                  label={
+                    <span className="text-xs font-semibold uppercase tracking-wider text-gray-400">
+                      Confirm password
+                    </span>
+                  }
+                  dependencies={["password"]}
+                  rules={[
+                    { required: true, message: "Please confirm your password" },
+                    ({ getFieldValue }) => ({
+                      validator(_, value) {
+                        if (!value || getFieldValue("password") === value)
+                          return Promise.resolve();
+                        return Promise.reject(
+                          new Error("Passwords do not match"),
+                        );
+                      },
+                    }),
+                  ]}
+                >
+                  <Input.Password
+                    prefix={<LockOutlined className="text-gray-300" />}
+                    placeholder="Re-enter password"
+                    size="large"
+                    className="rounded-xl"
+                  />
+                </Form.Item>
+
+                <Form.Item className="!mb-0">
+                  <Button
+                    type="primary"
+                    htmlType="submit"
+                    size="large"
+                    block
+                    loading={loading}
+                    className="!rounded-xl !h-11 !font-semibold !shadow-md !shadow-orange-200"
+                  >
+                    Create account
+                  </Button>
+                </Form.Item>
+              </Form>
+
+              <Divider className="!text-gray-400 !text-xs">
+                Already have an account?
+              </Divider>
+
+              <Link to="/login">
+                <Button size="large" block className="!rounded-xl">
+                  Sign in
+                </Button>
+              </Link>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </motion.div>
     </div>
   );

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Button, Drawer, Avatar, Dropdown } from "antd";
 import {
@@ -36,6 +36,7 @@ const userMenuItems = (onLogout, onProfile) => [
 export default function AppHeader({ isLoggedIn, onLogout }) {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleLogout = () => {
     setDrawerOpen(false);
@@ -69,7 +70,7 @@ export default function AppHeader({ isLoggedIn, onLogout }) {
           size={vertical ? "large" : "middle"}
           block={vertical}
           onClick={() => {
-            navigate("/login");
+            navigate("/login", { state: { from: location } });
             setDrawerOpen(false);
           }}
         >
@@ -81,7 +82,7 @@ export default function AppHeader({ isLoggedIn, onLogout }) {
           block={vertical}
           className="!shadow-md !shadow-orange-100"
           onClick={() => {
-            navigate("/register");
+            navigate("/register", { state: { from: location } });
             setDrawerOpen(false);
           }}
         >

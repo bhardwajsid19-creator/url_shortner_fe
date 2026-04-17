@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { isAuthenticated, logout as authLogout } from "./services/authService";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ConfigProvider } from "antd";
 import { ToastContainer } from "react-toastify";
@@ -18,9 +19,22 @@ import AdminDashboard from "./pages/admin/AdminDashboard.jsx";
 import Redirect from "./pages/Redirect.jsx";
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(null);
   const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(false);
+  useEffect(() => {
+    async function checkAuth() {
+      try {
+        await isAuthenticated();
+        setIsLoggedIn(true);
+      } catch {
+        setIsLoggedIn(false);
+      } finally {
+        setLoading(false);
+      }
+    }
 
+    checkAuth();
+  }, []);
   return (
     <ConfigProvider theme={themes.user.antd}>
       <BrowserRouter>
@@ -69,7 +83,10 @@ function App() {
             element={
               <PageLayout
                 isLoggedIn={isLoggedIn}
-                onLogout={() => setIsLoggedIn(false)}
+                onLogout={() => {
+                  authLogout();
+                  setIsLoggedIn(false);
+                }}
               >
                 <Routes>
                   <Route
@@ -83,10 +100,7 @@ function App() {
                   <Route
                     path="/login"
                     element={
-                      <PublicOnlyRoute
-                        isLoggedIn={isLoggedIn}
-                        redirectTo="/profile"
-                      >
+                      <PublicOnlyRoute isLoggedIn={isLoggedIn}>
                         <Login onLogin={() => setIsLoggedIn(true)} />
                       </PublicOnlyRoute>
                     }
@@ -94,10 +108,7 @@ function App() {
                   <Route
                     path="/register"
                     element={
-                      <PublicOnlyRoute
-                        isLoggedIn={isLoggedIn}
-                        redirectTo="/profile"
-                      >
+                      <PublicOnlyRoute isLoggedIn={isLoggedIn}>
                         <Register onLogin={() => setIsLoggedIn(true)} />
                       </PublicOnlyRoute>
                     }

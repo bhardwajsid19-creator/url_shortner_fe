@@ -20,7 +20,10 @@ export default function Redirect() {
       .then((data) => {
         console.log("Resolved URL data:", data);
       })
-      .catch(() => setNotFound(true));
+      .catch((err) => {
+        console.error("Error resolving URL:", err);
+        setNotFound(true);
+      });
   }, [slug]);
 
   if (notFound) return <NotFound slug={slug} />;
