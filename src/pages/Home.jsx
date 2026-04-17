@@ -100,7 +100,7 @@ export default function Home() {
       });
       console.log("Shortened URL data:", data);
       setShortUrl(
-        `${import.meta.env.VITE_FE_DOMAIN_NAME}/${import.meta.env.VITE_SHORT_URL_PREFIX}/${data.short_code}`,
+        `${window.location.origin}/${import.meta.env.VITE_SHORT_URL_PREFIX}/${data.short_code}`,
       );
       showToast.success("Your URL has been shortened successfully!");
     } catch (err) {
